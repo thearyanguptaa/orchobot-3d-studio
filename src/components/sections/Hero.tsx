@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Bot, Zap, Database, BarChart3, Code2, Layers, Sparkles, Plus } from "lucide-react";
-import { StarField } from "./StarField";
-import { GlassCube, SparkleIcon } from "./Cube3D";
+import { StarField } from "../StarField";
+import { GlassCube, SparkleIcon } from "../Cube3D";
 
 const satellites = [
   { label: "AI Agents", icon: Bot, x: -260, y: -190, delay: 0 },
