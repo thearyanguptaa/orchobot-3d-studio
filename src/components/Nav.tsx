@@ -11,8 +11,8 @@ export function Nav() {
     { href: "#testimonials", label: "Stories" },
   ];
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto mt-4 flex max-w-7xl items-center justify-between gap-3 rounded-2xl border border-violet-400/15 bg-[#0a0a0f]/70 px-4 py-2.5 backdrop-blur-xl sm:px-5 sm:py-3 mx-3 sm:mx-auto">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-4">
+      <div className="mx-auto mt-4 flex max-w-7xl items-center justify-between gap-3 rounded-2xl border border-violet-400/15 bg-[#0a0a0f]/70 px-4 py-2.5 backdrop-blur-xl sm:px-5 sm:py-3">
         <Link to="/" className="shrink-0">
           <Logo />
         </Link>
