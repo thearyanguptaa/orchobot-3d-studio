@@ -19,21 +19,22 @@ export function Testimonials() {
   const visible = [items[i % items.length], items[(i + 1) % items.length], items[(i + 2) % items.length]];
 
   return (
-    <section id="testimonials" className="relative overflow-hidden py-28" style={{ background: "#fdf4ec" }}>
+    <section id="testimonials" className="relative overflow-hidden py-20 sm:py-28" style={{ background: "#fdf4ec" }}>
       {/* soft warm decoration */}
       <div className="pointer-events-none absolute -left-32 top-10 h-72 w-72 rounded-full" style={{ background: "radial-gradient(circle, rgba(244,208,184,0.7), transparent 70%)" }} />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full" style={{ background: "radial-gradient(circle, rgba(201,160,144,0.5), transparent 70%)" }} />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#824050]/20 bg-white px-4 py-1.5 text-xs font-medium text-[#824050]">
             Testimonials
           </div>
-          <h2 className="mt-6 font-serif text-5xl text-[#1a0a2e] sm:text-6xl">What our clients say</h2>
-          <p className="mx-auto mt-4 max-w-xl text-[#5a3d5c]">
+          <h2 className="mt-6 font-serif text-4xl text-[#1a0a2e] sm:text-5xl md:text-6xl">What our clients say</h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-[#5a3d5c] sm:text-base">
             Operators and founders building leaner businesses with Orchobot agents.
           </p>
         </div>
+
 
         <div className="relative mt-16">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

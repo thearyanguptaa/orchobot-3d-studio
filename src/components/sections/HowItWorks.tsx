@@ -15,21 +15,22 @@ export function HowItWorks() {
   const progress = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
 
   return (
-    <section id="how" ref={ref} className="relative overflow-hidden py-28" style={{ background: "#12052a" }}>
+    <section id="how" ref={ref} className="relative overflow-hidden py-20 sm:py-28" style={{ background: "#12052a" }}>
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div
         className="pointer-events-none absolute right-[-10%] top-1/3 h-[500px] w-[500px] rounded-full opacity-40 blur-3xl"
         style={{ background: "radial-gradient(circle, rgba(168,85,247,0.35), transparent 65%)" }}
       />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-violet-200">
             The Process
           </div>
-          <h2 className="mx-auto mt-6 max-w-3xl font-serif text-5xl text-white sm:text-6xl">
+          <h2 className="mx-auto mt-6 max-w-3xl font-serif text-4xl text-white sm:text-5xl md:text-6xl">
             From Conversation to <span className="text-gradient-violet italic">Running Agent</span> in Minutes.
           </h2>
         </div>
+
 
         <div className="relative mt-20">
           {/* progress rail */}

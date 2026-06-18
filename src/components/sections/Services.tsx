@@ -21,7 +21,7 @@ const pillars = [
 
 export function Services() {
   return (
-    <section id="services" className="relative overflow-hidden py-28" style={{ background: "#0d0118" }}>
+    <section id="services" className="relative overflow-hidden py-20 sm:py-28" style={{ background: "#0d0118" }}>
       <div
         className="pointer-events-none absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full opacity-50 blur-3xl"
         style={{ background: "radial-gradient(circle, rgba(244,208,184,0.12), transparent 60%)" }}
@@ -31,18 +31,19 @@ export function Services() {
         style={{ background: "radial-gradient(circle, rgba(124,58,237,0.25), transparent 65%)" }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-violet-200">
             <span className="h-2 w-2 rounded-full bg-rose-300" />
             Our Services
           </div>
-          <h2 className="mx-auto mt-6 max-w-3xl font-serif text-5xl text-white sm:text-6xl">
+          <h2 className="mx-auto mt-6 max-w-3xl font-serif text-4xl text-white sm:text-5xl md:text-6xl">
             Solutions That <span className="text-gradient-violet italic">Work</span> for You
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-violet-100/60">
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-violet-100/60 sm:text-base">
             Smart automation and AI solutions designed to streamline, optimize, and scale every part of your business.
           </p>
+
           <div className="mx-auto mt-8 flex items-center justify-center gap-3 text-violet-300/40">
             <span className="h-px w-12 bg-violet-300/30" />
             <StarMark className="h-3 w-3" />

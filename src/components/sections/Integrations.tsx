@@ -18,28 +18,36 @@ const right = tools.slice(4);
 
 export function Integrations() {
   return (
-    <section id="integrations" className="relative overflow-hidden py-28" style={{ background: "#0a0a0f" }}>
+    <section id="integrations" className="relative overflow-hidden py-20 sm:py-28" style={{ background: "#0a0a0f" }}>
       <div
         className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-30"
         style={{ background: "radial-gradient(ellipse at right, rgba(192,132,252,0.25), transparent 60%)" }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/40 bg-violet-500/10 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-violet-200">
             <Zap className="h-3 w-3" /> Powered by Innovation
           </div>
-          <h2 className="mx-auto mt-6 max-w-3xl font-serif text-5xl leading-tight text-white sm:text-6xl">
+          <h2 className="mx-auto mt-6 max-w-3xl font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">
             Automation Tools That<br />
             Supercharge Your <span className="text-gradient-violet italic">Workflow</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-violet-100/60">
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-violet-100/60 sm:text-base">
             We integrate best-in-class platforms and intelligent systems to build seamless, scalable automation for your business.
           </p>
         </div>
 
-        {/* Orbital map */}
-        <div className="relative mx-auto mt-16 grid h-[560px] grid-cols-[1fr_2fr_1fr] items-center">
+        {/* Mobile: simple animated grid */}
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:hidden">
+          {tools.map((t, i) => (
+            <ToolChip key={i} t={t} side="left" delay={i * 0.05} />
+          ))}
+        </div>
+
+        {/* Desktop: orbital map */}
+        <div className="relative mx-auto mt-16 hidden h-[560px] grid-cols-[1fr_2fr_1fr] items-center lg:grid">
+
           {/* Left chips */}
           <div className="flex flex-col items-start gap-8 pl-4">
             {left.map((t, i) => (
