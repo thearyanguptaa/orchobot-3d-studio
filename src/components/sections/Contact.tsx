@@ -5,19 +5,20 @@ import { Check, ArrowRight, Sparkles } from "lucide-react";
 export function Contact() {
   const [sent, setSent] = useState(false);
   return (
-    <section id="contact" className="relative overflow-hidden py-28" style={{ background: "#12052a" }}>
+    <section id="contact" className="relative overflow-hidden py-20 sm:py-28" style={{ background: "#12052a" }}>
       <div className="absolute inset-0 bg-grid opacity-30" />
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 lg:grid-cols-2 lg:items-center">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 sm:gap-14 sm:px-6 lg:grid-cols-2 lg:items-center">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-1.5 text-[11px] uppercase tracking-[0.22em] text-violet-200">
             <Sparkles className="h-3 w-3" /> Let's talk
           </div>
-          <h2 className="mt-6 font-serif text-5xl text-white">
+          <h2 className="mt-6 font-serif text-4xl text-white sm:text-5xl md:text-6xl">
             Book a free <span className="text-gradient-violet italic">strategy call</span>.
           </h2>
-          <p className="mt-5 max-w-md text-violet-100/65">
+          <p className="mt-5 max-w-md text-sm text-violet-100/65 sm:text-base">
             30 minutes. We map your highest-leverage automation, walk through the agent stack, and tell you honestly whether we're the right fit.
           </p>
+
           <ul className="mt-8 space-y-3 text-sm text-violet-100/80">
             {["Response within 24 hours", "No sales pressure, ever", "Built for teams of 2–200+"].map((t) => (
               <li key={t} className="flex items-center gap-3">
@@ -36,7 +37,7 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-          className="card-glow space-y-4 p-8"
+          className="card-glow space-y-4 p-6 sm:p-8"
         >
           <Field label="Name" name="name" placeholder="Your full name" />
           <Field label="Company" name="company" placeholder="Where you work" />
