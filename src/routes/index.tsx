@@ -6,7 +6,7 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Integrations } from "@/components/sections/Integrations";
 import { Stats } from "@/components/sections/Stats";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { ROICalculator } from "@/components/sections/ROICalculator";
+
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/Footer";
 import { CursorFX } from "@/components/CursorFX";
@@ -34,7 +34,7 @@ function Home() {
       <Integrations />
       <Stats />
       <Testimonials />
-      <ROICalculator />
+      
       <Contact />
       <Footer />
     </main>
