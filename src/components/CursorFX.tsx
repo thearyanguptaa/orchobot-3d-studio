@@ -33,7 +33,9 @@ export function CursorFX() {
 
     const onMove = (e: MouseEvent) => {
       mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx - 3}px, ${my - 3}px)`;
+      dot.style.transform = `translate3d(${mx - 3}px, ${my - 3}px, 0)`;
+      // Snap the ring instantly to the cursor for a quick, responsive feel
+      rx = mx; ry = my;
 
       const speed = Math.min(40, Math.hypot(mx - lastX, my - lastY));
       const count = Math.floor(speed / 8) + 1;
@@ -68,9 +70,10 @@ export function CursorFX() {
 
     let raf = 0;
     const tick = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.transform = `translate(${rx - ring.offsetWidth / 2}px, ${ry - ring.offsetHeight / 2}px)`;
+      // Heavy lerp = snappy follow (was 0.18 → felt laggy)
+      rx += (mx - rx) * 0.6;
+      ry += (my - ry) * 0.6;
+      ring.style.transform = `translate3d(${rx - ring.offsetWidth / 2}px, ${ry - ring.offsetHeight / 2}px, 0)`;
 
       ctx.clearRect(0, 0, w, h);
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -110,7 +113,7 @@ export function CursorFX() {
       />
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-9 w-9 rounded-full border-2 transition-[width,height,background-color,border-color] duration-200 md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-9 w-9 rounded-full border-2 transition-[width,height,background-color,border-color] duration-150 will-change-transform md:block"
         style={{ borderColor: "rgba(168,85,247,0.6)" }}
       />
       <div
