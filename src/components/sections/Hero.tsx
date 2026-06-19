@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { StarField } from "../StarField";
 import { GlassCube, SparkleIcon } from "../Cube3D";
 
-const orbitChips = [
-  { label: "AI Agents", icon: Bot, radius: 0.95, duration: 28, offset: 0 },
-  { label: "Workflow", icon: Zap, radius: 0.95, duration: 28, offset: 0.5 },
-  { label: "Data", icon: Code2, radius: 0.7, duration: 22, offset: 0.25, reverse: true },
-  { label: "Analytics", icon: BarChart3, radius: 0.7, duration: 22, offset: 0.75, reverse: true },
-  { label: "Systems", icon: Layers, radius: 1.15, duration: 36, offset: 0.15 },
+const satellites = [
+  { label: "AI Agents", icon: Bot },
+  { label: "Workflow", icon: Zap },
+  { label: "Data", icon: Code2 },
+  { label: "Analytics", icon: BarChart3 },
+  { label: "Systems", icon: Layers },
+  { label: "Automation", icon: Sparkles },
 ];
 
 function useSceneSize() {
@@ -87,7 +88,6 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Trust */}
           <div className="mt-10 sm:mt-12">
             <p className="text-[10px] uppercase tracking-[0.25em] text-violet-200/40">
               Trusted by innovative companies
@@ -101,7 +101,6 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Stats strip */}
           <div className="mt-8 grid grid-cols-1 gap-3 rounded-2xl border border-violet-500/15 bg-white/[0.02] p-4 backdrop-blur sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:p-5">
             {[
               { icon: Zap, num: "12.4K+", label: "Tasks Automated" },
@@ -121,7 +120,6 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* RIGHT — 3D scene */}
         <div className="relative order-1 flex items-center justify-center lg:order-2">
           <Hero3DScene />
         </div>
@@ -132,33 +130,80 @@ export function Hero() {
 
 function Hero3DScene() {
   const size = useSceneSize();
+  const radius = size * 0.42;
+  const cubeSize = Math.max(48, size * 0.13);
+
   return (
     <div
       className="relative"
-      style={{ width: size, height: size, perspective: 1200 }}
+      style={{ width: size, height: size, perspective: 1400 }}
     >
-      {/* Orbit rings (tilted) */}
-      {[0.6, 0.85, 1.1].map((r, i) => (
+      {/* Tilted orbit ring */}
+      <div
+        className="absolute left-1/2 top-1/2"
+        style={{
+          width: radius * 2,
+          height: radius * 2,
+          transform: "translate(-50%, -50%) rotateX(65deg)",
+          transformStyle: "preserve-3d",
+        }}
+      >
         <div
-          key={i}
-          className="absolute left-1/2 top-1/2 rounded-full border border-violet-400/15"
-          style={{
-            width: size * r,
-            height: size * r,
-            transform: "translate(-50%, -50%) rotateX(70deg)",
-            boxShadow: "0 0 30px rgba(168,85,247,0.12) inset",
-          }}
+          className="absolute inset-0 rounded-full border border-violet-400/20"
+          style={{ boxShadow: "0 0 40px rgba(168,85,247,0.15) inset" }}
         />
-      ))}
+        <div
+          className="absolute inset-[18%] rounded-full border border-violet-400/15"
+        />
+      </div>
 
-      {/* Central cube + pedestal */}
+      {/* Single rotating group — all satellites at fixed symmetric angles on the same tilted plane */}
+      <motion.div
+        className="absolute left-1/2 top-1/2"
+        style={{
+          width: 0,
+          height: 0,
+          transformStyle: "preserve-3d",
+          transform: "translate(-50%, -50%) rotateX(65deg)",
+        }}
+        animate={{ rotateZ: 360 }}
+        transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
+      >
+        {satellites.map((s, i) => {
+          const angle = (i / satellites.length) * Math.PI * 2;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          return (
+            <div
+              key={i}
+              className="absolute"
+              style={{
+                left: 0,
+                top: 0,
+                transform: `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`,
+              }}
+            >
+              {/* counter-tilt + counter-rotate so chip faces camera & stays upright */}
+              <motion.div
+                style={{ transform: "rotateX(-65deg)" }}
+                animate={{ rotateZ: -360 }}
+                transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
+              >
+                <ChipCube label={s.label} Icon={s.icon} cubeSize={cubeSize} />
+              </motion.div>
+            </div>
+          );
+        })}
+      </motion.div>
+
+      {/* Central cube — perfectly centered, gentle float */}
       <motion.div
         className="absolute left-1/2 top-1/2 z-10"
         style={{ transform: "translate(-50%, -50%)" }}
         animate={{ y: [-6, 6, -6] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2">
+        <div className="absolute left-1/2 top-full mt-3 -translate-x-1/2">
           <div
             className="h-3 rounded-full"
             style={{
@@ -168,40 +213,10 @@ function Hero3DScene() {
             }}
           />
         </div>
-        <GlassCube size={size * 0.28} spinDuration={16}>
+        <GlassCube size={size * 0.28} spinDuration={18}>
           <SparkleIcon className="h-10 w-10 text-violet-200 drop-shadow-[0_0_18px_rgba(192,132,252,0.9)]" />
         </GlassCube>
       </motion.div>
-
-      {/* Orbiting chips — each lives on its own rotating ring so they never collide */}
-      {orbitChips.map((c, i) => {
-        const radius = (size / 2) * c.radius;
-        return (
-          <motion.div
-            key={i}
-            className="absolute left-1/2 top-1/2"
-            style={{ width: 0, height: 0 }}
-            initial={{ rotate: c.offset * 360 }}
-            animate={{ rotate: (c.reverse ? -360 : 360) + c.offset * 360 }}
-            transition={{ duration: c.duration, repeat: Infinity, ease: "linear" }}
-          >
-            <div
-              className="absolute"
-              style={{
-                transform: `translate(${radius}px, 0) translate(-50%, -50%)`,
-              }}
-            >
-              {/* counter-rotate so chip stays upright */}
-              <motion.div
-                animate={{ rotate: c.reverse ? 360 : -360 }}
-                transition={{ duration: c.duration, repeat: Infinity, ease: "linear" }}
-              >
-                <ChipCube label={c.label} Icon={c.icon} cubeSize={Math.max(44, size * 0.13)} />
-              </motion.div>
-            </div>
-          </motion.div>
-        );
-      })}
     </div>
   );
 }
@@ -217,8 +232,8 @@ function ChipCube({
 }) {
   return (
     <motion.div
-      className="flex items-center gap-2 rounded-2xl border border-violet-400/30 bg-violet-950/40 px-3 py-2 backdrop-blur-md"
-      style={{ boxShadow: "0 8px 24px -8px rgba(124,58,237,0.5)" }}
+      className="flex items-center gap-2 rounded-2xl border border-violet-400/30 bg-violet-950/50 px-3 py-2 backdrop-blur-md"
+      style={{ boxShadow: "0 8px 24px -8px rgba(124,58,237,0.6)" }}
       whileHover={{ scale: 1.08 }}
     >
       <div style={{ width: cubeSize * 0.55, height: cubeSize * 0.55 }}>
