@@ -1,5 +1,5 @@
-import { Mail, Phone, MapPin, Twitter, Linkedin, Github, Instagram, ArrowRight } from "lucide-react";
-import logoAsset from "@/assets/orchobot-logo.png.asset.json";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import logoAsset from "@/assets/my-logo.png";
 
 export function Footer() {
   const productLinks = ["Services", "How it works", "Integrations", "Case Studies"];
@@ -43,7 +43,7 @@ export function Footer() {
         {/* Brand + contact */}
         <div className="md:col-span-5">
           <div className="flex items-center gap-3">
-            <img src={logoAsset.url} alt="Orchobot" className="h-12 w-12 object-contain drop-shadow-[0_0_14px_rgba(168,85,247,0.55)]" />
+            <img src={logoAsset} alt="Orchobot" className="h-12 w-12 object-contain drop-shadow-[0_0_14px_rgba(168,85,247,0.55)]" />
             <div className="flex flex-col leading-none">
               <span className="font-display text-2xl font-semibold text-white">orchobot</span>
               <span className="text-[10px] uppercase tracking-[0.22em] text-violet-300/70">
@@ -60,43 +60,25 @@ export function Footer() {
               <span className="grid h-9 w-9 place-items-center rounded-lg border border-violet-400/20 bg-violet-500/10 text-violet-300">
                 <Mail className="h-4 w-4" />
               </span>
-              <a href="mailto:hello@orchobot.ai" className="transition-colors hover:text-white">
-                hello@orchobot.ai
+              <a href="mailto:thearyanguptaa@gmail.com" className="transition-colors hover:text-white">
+                thearyanguptaa@gmail.com
               </a>
             </li>
             <li className="flex items-center gap-3 text-violet-100/75">
               <span className="grid h-9 w-9 place-items-center rounded-lg border border-violet-400/20 bg-violet-500/10 text-violet-300">
                 <Phone className="h-4 w-4" />
               </span>
-              <a href="tel:+919876543210" className="transition-colors hover:text-white">
-                +91 98765 43210
+              <a href="tel:+917667572745" className="transition-colors hover:text-white">
+                +91 76675 72745
               </a>
             </li>
             <li className="flex items-center gap-3 text-violet-100/75">
               <span className="grid h-9 w-9 place-items-center rounded-lg border border-violet-400/20 bg-violet-500/10 text-violet-300">
                 <MapPin className="h-4 w-4" />
               </span>
-              <span>Remote-first · Building globally</span>
+              <span>patliputra colony, 800013</span>
             </li>
           </ul>
-
-          <div className="mt-7 flex items-center gap-3">
-            {[
-              { Icon: Twitter, label: "Twitter" },
-              { Icon: Linkedin, label: "LinkedIn" },
-              { Icon: Github, label: "GitHub" },
-              { Icon: Instagram, label: "Instagram" },
-            ].map(({ Icon, label }) => (
-              <a
-                key={label}
-                href="#"
-                aria-label={label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-violet-400/20 bg-white/[0.03] text-violet-200/70 transition-all hover:border-violet-400/60 hover:bg-violet-500/15 hover:text-white"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
         </div>
 
         {/* Link columns */}

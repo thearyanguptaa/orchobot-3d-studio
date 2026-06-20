@@ -88,19 +88,6 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="mt-10 sm:mt-12">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-violet-200/40">
-              Trusted by innovative companies
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 opacity-60 sm:mt-5 sm:gap-x-10 sm:gap-y-4">
-              {["logoipsum", "logoipsum", "logoipsum", "logoipsum"].map((l, i) => (
-                <span key={i} className="font-display text-base font-semibold tracking-tight text-violet-100/50 sm:text-lg">
-                  ◐ {l}
-                </span>
-              ))}
-            </div>
-          </div>
-
           <div className="mt-8 grid grid-cols-1 gap-3 rounded-2xl border border-violet-500/15 bg-white/[0.02] p-4 backdrop-blur sm:mt-10 sm:grid-cols-3 sm:gap-2 sm:p-5">
             {[
               { icon: Zap, num: "12.4K+", label: "Tasks Automated" },

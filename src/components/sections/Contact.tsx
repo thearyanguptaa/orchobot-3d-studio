@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -20,8 +20,9 @@ export function Contact() {
   const [sent, setSent] = useState(false);
 
   return (
-    <section
-      id="contact"
+    <>
+      <section
+        id="contact"
       className="relative overflow-hidden py-20 sm:py-28"
       style={{
         background:
@@ -84,13 +85,30 @@ export function Contact() {
 
         {/* RIGHT — Form card (glass) */}
         <motion.form
+          action="https://api.web3forms.com/submit"
+          method="POST"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            setSent(true);
+            const form = e.currentTarget;
+            const formData = new FormData(form);
+            try {
+              const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData,
+              });
+              if (response.ok) {
+                setSent(true);
+                form.reset();
+              } else {
+                form.submit();
+              }
+            } catch (error) {
+              form.submit();
+            }
           }}
           className="relative rounded-[28px] border border-white/40 bg-white/15 p-6 backdrop-blur-2xl sm:p-8"
           style={{
@@ -98,6 +116,7 @@ export function Contact() {
               "0 30px 80px -20px rgba(26,10,61,0.45), inset 0 1px 0 rgba(255,255,255,0.4)",
           }}
         >
+          <input type="hidden" name="access_key" value="1bee1bc4-2ed9-4aae-8f19-ea6ceef4cef9" />
           {/* Header */}
           <div className="flex items-start gap-4">
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/80 text-[#7c3aed] shadow-sm">
@@ -131,6 +150,7 @@ export function Contact() {
                     What do you want to automate?
                   </label>
                   <select
+                    name="automation_type"
                     required
                     defaultValue=""
                     className="mt-0.5 w-full appearance-none bg-transparent text-sm text-white outline-none [&>option]:bg-[#1a0a3d] [&>option]:text-white"
@@ -158,6 +178,7 @@ export function Contact() {
                     Tell us a bit about your workflow…
                   </label>
                   <textarea
+                    name="message"
                     required
                     rows={3}
                     placeholder="A few sentences about your current process or goals…"
@@ -202,6 +223,71 @@ export function Contact() {
         </motion.form>
       </div>
     </section>
+
+    <AnimatePresence>
+      {sent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSent(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+          />
+
+          {/* Modal Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
+            className="relative w-full max-w-[440px] overflow-hidden rounded-[32px] border border-white/40 bg-white/90 p-8 text-center shadow-[0_30px_80px_-20px_rgba(26,10,61,0.5)] backdrop-blur-2xl sm:p-10"
+          >
+            {/* Magic ring glow behind checkmark */}
+            <div className="relative mx-auto flex h-36 w-36 items-center justify-center">
+              <div className="absolute inset-0 animate-[spin_25s_linear_infinite] rounded-full border border-violet-400/20 bg-gradient-to-tr from-violet-500/5 via-transparent to-violet-500/10 pointer-events-none" />
+              <div className="absolute inset-2 rounded-full border border-dashed border-violet-300/30" />
+              
+              {/* Sparkles around checkmark */}
+              <Sparkles className="absolute -top-1 -left-1 h-5 w-5 text-violet-400 animate-pulse" />
+              <Sparkles className="absolute -top-2 right-4 h-4 w-4 text-violet-400/80 animate-pulse delay-75" />
+              <Sparkles className="absolute top-8 -left-6 h-4 w-4 text-violet-500 animate-pulse delay-150" />
+              <Sparkles className="absolute bottom-6 -right-4 h-5 w-5 text-violet-400 animate-pulse delay-300" />
+              <Sparkles className="absolute bottom-2 left-3 h-3.5 w-3.5 text-violet-500/70 animate-pulse" />
+
+              {/* Central checkmark circle */}
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-tr from-violet-100/80 to-white text-[#7c3aed] shadow-[0_8px_30px_rgba(124,58,237,0.15),inset_0_2px_4px_rgba(255,255,255,1)]">
+                <Check className="h-9 w-9 stroke-[3]" />
+              </div>
+            </div>
+
+            {/* Text contents */}
+            <h3 className="mt-4 font-serif text-3xl font-semibold text-[#1a0a3d] sm:text-4xl">
+              Thank You!
+            </h3>
+            
+            <p className="mt-4 text-sm font-semibold leading-relaxed text-[#1a0a3d]">
+              Your strategy call request has been submitted successfully.
+            </p>
+            
+            <p className="mt-3 text-xs sm:text-sm leading-relaxed text-[#1a0a3d]/70">
+              We've received your information and our team will get back to you within 24 hours to schedule your call.
+            </p>
+
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setSent(false)}
+              className="mt-8 w-full rounded-2xl bg-gradient-to-r from-[#1a0a3d] to-[#7c3aed] py-4 text-sm font-semibold text-white shadow-[0_12px_24px_-8px_rgba(124,58,237,0.5)] transition hover:opacity-95 active:scale-[0.98]"
+            >
+              Close
+            </button>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  </>
   );
 }
 
